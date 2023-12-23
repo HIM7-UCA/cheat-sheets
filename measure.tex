@@ -1,0 +1,1358 @@
+\documentclass[dvipsnames]{article}
+\usepackage[usenames]{xcolor}
+\usepackage{geometry}
+\geometry{a3paper, landscape, margin=2in}
+\usepackage{url}
+\usepackage{multicol}
+\usepackage{esint}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{colortbl}
+\usepackage{xcolor}  % Assurez-vous d'inclure ce package
+
+\definecolor{royalblue}{rgb}{0.25, 0.41, 0.88}
+\definecolor{emerald}{rgb}{0.31, 0.78, 0.47}
+
+\usepackage{mathtools}
+\usepackage{ mathrsfs }	
+\usepackage{ dsfont }
+\usepackage{ gensymb }
+
+
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\makeatletter
+\setlist[itemize]{noitemsep, topsep=0pt}
+\setlist[enumerate]{noitemsep, topsep=0pt}
+
+
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+%Sheet made by Boris, Template is by Drew Ulick https://de.overleaf.com/articles/130-cheat-sheet/ntwtkmpxmgrp
+\usepackage[english]{babel}
+\usepackage{palatino}
+\usepackage{bm}
+	\definecolor{cobalt}{rgb}{0.0, 0.28, 0.67}
+\advance\topmargin-1.2in
+\advance\textheight3in
+\advance\textwidth3in
+\advance\oddsidemargin-1.5in
+\advance\evensidemargin-1.5in
+\parindent0pt
+\parskip2pt
+\newcommand{\hr}{\centerline{\rule{3.5in}{1pt}}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\F}{\mathbb{F}}
+% \colorbox[HTML]{e4e4e4}{\makebox[\textwidth-2\fboxsep][l]{texto}}
+
+\begin{document}
+\definecolor{orange}{RGB}{255, 115,0}
+	\begin{center}{\fontsize{35}{60}{\textcolor{Dandelion}{\textbf{Mesure et Integration Cheat Sheet HIM7}}}}\\
+\end{center}
+\begin{multicols*}{3}
+
+\tikzstyle{mybox} = [draw=Dandelion, fill=white, very thick,
+    rectangle, rounded corners, inner sep=10pt, inner ysep=10pt]
+\tikzstyle{fancytitle} =[fill=Dandelion, text=white, font=\bfseries]
+
+% ------------------------------------------------------
+% Start of Sheet
+% ------------------------------------------------------
+
+%------------ Notion de tribu ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+	    Soit $E$ un ensemble quelconque soit $\mathcal{T} \subset P(E)($ ensemble des parties de $E)$; on dit que $\mathcal{T}$ est une tribu sur $E$ si et seulement si $\mathcal{T}$ vérifie les conditions suivantes :
+	    \begin{itemize}
+	    	\item $\varnothing, E \in \mathcal{T}$
+	    	\item $\forall \mathrm{A} \in \mathcal{T}$ on a $A^c \in \mathcal{T}$
+	    	\item $\forall\left(A_n\right)_n$ familles dénombrables de $\mathcal{T}$ on a $\bigcup_n A_n \in \mathcal{T}$ dans ce cas-là on dit que (E,T)est un espace mesurable.
+	    \end{itemize}
+    \end{minipage}
+};
+%------------ Notion de tribu Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Notion de tribu};
+\end{tikzpicture}
+%------------ Exemple ---------------
+\begin{tikzpicture}
+\node [mybox, fill=blue!20] (box){%
+    \begin{minipage}{0.3\textwidth}
+	    Soit $E$ un ensemble quelconque:
+	    \begin{itemize}
+	    	\item $\mathcal{T}=P(E)(E, P(E))$ est un espace mesurable.
+	    	\item $\mathcal{T}_1=\varnothing, E\left(E, \mathcal{T}_1\right)$ est un espace mesurable.
+	    \end{itemize}
+    \end{minipage}
+};
+%------------ Exemple 1.1.1 Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Exemple};
+\end{tikzpicture}
+%------------ Notion de tribu  engendrée ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+Soient $E$ un ensemble quelconque et $\mathcal{C} \in P(E)$ on appelle tribu engendrée par $C$ la plus petite tribu sur $E$, c'est aussi l'intersiction de toutes les tribus sur $E$ qui contient la partie $C$ on la note $\sigma(C)$.	   
+    \end{minipage}
+};
+%------------ Notion de tribu Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {tribu  engendrée};
+\end{tikzpicture}
+%------------ Notion de tribu borélienne  ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+	    Soit E un espace topologique (ou métrique)
+$\mathcal{C}=\{$ ouvert de $\mathbb{R}\}$; on appelle tribu borélienne (ou tribu de Borèl) la plus petite tribu sur $E$ qui contient les ouverts de $E$
+    \end{minipage}
+};
+%------------ tribu borélienne Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) { tribu borélienne };
+\end{tikzpicture}
+%------------ Mesure Positive ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+	    Une mesure positive sur $(E, \mathcal{T})$ est une application :
+	    $$
+	    \begin{aligned}
+	    \mu: \mathcal{T} & \longrightarrow \overline{\mathbb{R}}_{+} \\
+	    A & \longrightarrow \mu(A)
+	    \end{aligned}
+	    $$
+	    Qui verifie les proprietés suivantes:
+	    \begin{itemize}
+	    	\item $\mu(\theta)=0$
+	    	\item Pour toute suite $\left(A_{n}\right)_{n}$ d élements de $\mathcal{T}$ disjoints deux à deux $\left(A_{n} \cap A_{m}=\emptyset \forall m \neq n\right)$ on a $\mu\left(\bigcup_{n} A_{n}\right)=\sum_{n} \mu\left(A_{n}\right)$ avec la série:
+	    	$$
+	    	\sum_{n} \mu\left(A_{n}\right)=\lim _{n \rightarrow \infty} \sum_{j=1}^{n} \mu\left(A_{j}\right)
+	    	$$
+	    	Dans ce cas là ,on dit que $(E, \mathcal{T}, \mu)$ est un espace mesuré.
+	    \end{itemize}
+    \end{minipage}
+};
+%------------ Mesure Positive Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Mesure Positive};
+\end{tikzpicture}
+%------------ Mesure Properties ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+	    Soit (E.T.$\mu$) espace mesuré
+	    \begin{itemize}
+	    	\item la mesure $\mu$ est dite fini si et seulement si $\mu(E)<\infty$
+	    	\item la mesure $\mu$ esi dite mesure probabilité ou une probabilité si et seulement si $\mu(E)=1$
+	    	\item la mesure $\mu$ est $\sigma$ fnis s'ile existe une suite $\left(A_n\right)_n$ de $\mathcal{T}$ tel que $E=\bigcup_n A_n \forall n$
+	    \end{itemize}
+    \end{minipage}
+};
+%------------ Mesure Properties Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Propriétés de Mesure};
+\end{tikzpicture}
+
+%------------ Exemple ---------------
+\begin{tikzpicture}
+\node [mybox, fill=blue!20] (box){%
+    \begin{minipage}{0.3\textwidth}
+	    Si $\mu$ est finie alors $\mu$ $\sigma$ finie.
+	    (la mesure de Lebesgue est $\delta$ finie Mais n'est pas finie.)
+    \end{minipage}
+};
+%------------ Exemple Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Exemple};
+\end{tikzpicture}
+
+%------------ Ensemble μ Négligeable ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+	    Soit $(E, \mathcal{T}, \mu)$ espace mesure
+	    soit $A \subset E$,on dit que $A$ est un ensemble $\mu$ négligeable si et seulement si il 'existe $B \in \mathcal{T}$
+	    tel que $A \subset B$ et $\mu(B)=0$
+    \end{minipage}
+};
+%------------ Ensemble μ Négligeable Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Ensemble μ Négligeable};
+\end{tikzpicture}
+
+%------------ Remarque ---------------
+\begin{tikzpicture}
+\node [mybox, draw=purple, ultra thick] (box){%
+    \begin{minipage}{0.3\textwidth}
+	    Si $A \in \mathcal{T}$, $A$ est dite négligeable si $\mu(A)=0$.
+    \end{minipage}
+};
+%------------ Remarque Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Remarque};
+\end{tikzpicture}
+
+%------------ Exemple ---------------
+\begin{tikzpicture}
+\node [mybox, fill=blue!20] (box){%
+    \begin{minipage}{0.3\textwidth}
+	    Pour la mesure de Dirac en $x_0$, toute ensemble ne contient pas $x_0$ sont négligeables.
+    \end{minipage}
+};
+%------------ Exemple Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Exemple};
+\end{tikzpicture}
+%------------ Proposition 1.2.1 ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+	    Soit $(E, \mathcal{T}, \mu)$ un espace mesure Alors :
+	    \begin{itemize}
+	    	\item Si $A, B \in \mathcal{T}$ et $A \subset B \Longrightarrow \mu(A) \leq \mu(B)$
+	    	\item Soit $\left(A_n\right)_n$ une suite de $\mathcal{T}$ tel que $A_n \subset A_{n+1} \forall n$ Alors on $a$ :
+	    	$$
+	    	\mu\left(\bigcup_n A_n\right)=\sup _n \mu\left(A_n\right)=\lim _{x \rightarrow+\infty} \mu\left(A_n\right)
+	    	$$
+	    	\item Soit $\left(A_n\right)_n$ une suite de $T$ tel que $A_{n+1} \subset A_n \forall n$ et il existe $n_0$ tel que $\mu\left(A_{n_0}\right)<\infty$ Alors on $a$ :
+	    	$$
+	    	\mu\left(\bigcap_n A_n\right)=\inf _n \mu\left(A_n\right)=\lim _{x \rightarrow+\infty} \mu\left(A_n\right)
+	    	$$
+	    	\item Soit $\left(A_n\right)_n$ une suite quelconque de $T$ Alors on $a$ :
+	    	$$
+	    	\mu\left(A_{n}\right) \leq \sum_n \mu\left(A_n\right)
+	    	$$
+	    \end{itemize}
+    \end{minipage}
+};
+%------------ Proposition 1.2.1 Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Proposition 1.2.1};
+\end{tikzpicture}
+%------------ Mesure de Lebesgue ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+	    Soit $A \in \mathcal{P}(\mathbb{R})$,et soit $\lambda^*: \mathcal{P}(\mathbb{R}) \longrightarrow[0,+\infty]$ telle que $\lambda^*(A)=\inf \left\{\sum_n\left(b_n-a_n\right) / A \subset \bigcup_n\right] a_n, b_n[$
+    \end{minipage}
+};
+%------------ Mesure de Lebesgue Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Mesure de Lebesgue};
+\end{tikzpicture}
+
+%------------ Propriétés de λ* ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+	    $\lambda^*$ est bien définie et vérifie :
+	    \begin{itemize}
+	    	\item $\lambda^*(\emptyset)=0$
+	    	\item Pour tout $A, B \in \mathcal{P}(\mathbb{R})$ tels que $A \subset B$ on a $\lambda^*(A) \leq \lambda^*(B)$
+	    	\item Pour toute suite $\left(A_n\right)_n$ de $\mathcal{P}(\mathbb{R})$, on $a$ :
+	    	$$
+	    	\lambda^*\left(\bigcup_n A_n\right) \leq \sum_n \lambda^*\left(A_n\right)
+	    	$$
+	    \end{itemize}
+    \end{minipage}
+};
+%------------ Propriétés de λ* Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Propriétés};
+\end{tikzpicture}
+
+%------------ Théorème de Caratheodory ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+	    Il existe une et une seule mesure sur $\mathcal{B}(\mathbb{R})$, notée $\lambda$ et appelée mesure de Lebesgue sur les boréliens de $\mathbb{R}$ tel que:
+	    Pour tout $\alpha, \beta \in \mathbb{R}$.
+	    $$
+	    \lambda((\alpha, \beta))=\beta-\alpha
+	    $$
+    \end{minipage}
+};
+%------------ Théorème de Caratheodory Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Théorème de Caratheodory};
+\end{tikzpicture}
+
+%------------ Remarque sur λ* ---------------
+\begin{tikzpicture}
+\node [mybox, draw=purple, ultra thick] (box){%
+    \begin{minipage}{0.3\textwidth}
+	    Remarque : $\lambda^*$ n'est pas une mesure sur $P(\mathbb{R})$.
+	    $\lambda^*$ est définie sur l'ensemble de toutes les parties de $\mathbb{R}$. Cette mesure sera la restriction de l'application $\lambda^*$ sur une nouvelle tribu.
+    \end{minipage}
+};
+%------------ Remarque sur λ* Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Remarque};
+\end{tikzpicture}
+%------------ Définition des Parties Mesurables ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+	        Une partie $E$ de $\mathcal{P}(\mathbb{R})$ est dite $\lambda^*$-mesurable si
+	    $$
+	    \lambda^*(A)=\lambda^*(E \bigcap A)+\lambda^*\left(E^c \bigcap A\right)
+	    $$
+	    est vérifiée pour toute partie $A \in \mathcal{P}(\mathbb{R})$
+	    On note alors $\mathcal{L}$ l'ensemble de toutes les parties $\lambda^*$-mesurable.
+    \end{minipage}
+};
+%------------ Définition des Parties Mesurables Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Parties *Mesurables};
+\end{tikzpicture}
+%------------ Proposition 2.2.1 ---------------
+\begin{tikzpicture}
+	\node [mybox, draw=royalblue, ultra thick] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $m: \mathcal{B}(\mathbb{R}) \longrightarrow \mathbb{R}^{+}$ une mesure qui vérifie $m(K) \leq+\infty$ pour tout $K$ compact de $\mathbb{R}$. On pose $\mathcal{T}=\left\{A \in \mathcal{B}(\mathbb{R}) /\right.$ tel que pour tout $\epsilon \geq 0$, il existe $O_\epsilon$ ouvert de $\mathbb{R}$ et il existe $F_\epsilon$ fermé de $\mathbb{R}$ tel que $F_\epsilon \subset A \subset O_\epsilon$ et $\left.m\left(O_\epsilon \backslash F_\epsilon\right) \leq \epsilon\right\}$ Alors $\mathcal{T}$ est une tribu sur $\mathbb{R}$.
+		\end{minipage}
+	};
+%------------ Proposition 2.2.1 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Proposition};
+\end{tikzpicture}
+%------------ Définition 3.1.1 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soient $(E, \mathcal{A})$ et $(F, \tau)$ deux espaces mesurables et $f: E \rightarrow F$ une application. On dit que f est mesurable sur $E$ ssi: $\forall B \in \tau \quad f^{-1}(B) \in \mathcal{A}$.
+		\end{minipage}
+	};
+%------------ Définition 3.1.1 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {fonctions mesurables};
+\end{tikzpicture}
+
+%------------ Proposition 3.1.1 ---------------
+\begin{tikzpicture}
+	\node [mybox, draw=royalblue, ultra thick] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soient $\left(E_1, \mathcal{M}_1\right),\left(E_2, \mathcal{M}_2\right),\left(E_3, \mathcal{M}_3\right)$ des espaces mesurables; $f_1: E_1 \rightarrow E_2$ et $f_2: E_2 \rightarrow E_3$ des fonctions mesurables. Alors $f_2 \circ f_1: E_1 \rightarrow E_3$ est aussi mesurable.
+		\end{minipage}
+	};
+%------------ Proposition 3.1.1 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Proposition 3.1.1};
+\end{tikzpicture}
+
+%------------ Proposition 3.1.2 ---------------
+\begin{tikzpicture}
+	\node [mybox, draw=royalblue, ultra thick] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $f:(E, A) \rightarrow(F, B)$ une application.
+			Si $\mathcal{B}=\sigma(\mathcal{C})$ (La tribu $\mathcal{B}$ est engendree par la classe $\mathcal{C})$, Alors :
+			$$
+			(f \text { est mesurable }) \Longleftrightarrow\left(\forall B \in \mathcal{C} f^{-1}(B) \in \mathcal{A}\right)
+			$$
+		\end{minipage}
+	};
+%------------ Proposition 3.1.2 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Proposition 3.1.2};
+\end{tikzpicture}
+
+%------------ Corollaire 3.1.2 ---------------
+\begin{tikzpicture}
+	\tikzstyle{mybox} = [draw=black, fill=emerald!20, very thick,
+    rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
+
+	\node [mybox, draw=black, ultra thick] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $f:(E, \mathcal{A}) \longrightarrow \mathbb{R}$.
+			$$
+			(f \text { est mesurable }) \Longleftrightarrow\left(\forall a \in \mathbb{R}: f^{-1}(]-\infty, a[) \in \mathcal{A}\right)
+			$$
+			\begin{itemize}
+				\item $f^{-1}(]-\infty, a[)=\{x \in E / f(x)<a\}=[f<a]$.
+				\item $\left.f^{-1}(] b,+\infty [\right)=\{x \in E / b<f(x)\}=[b<f]$.
+			\end{itemize}
+		\end{minipage}
+	};
+%------------ Corollaire 3.1.2 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Corollaire 3.1.2};
+\end{tikzpicture}
+
+
+%------------ Corollaire 3.1.3 ---------------
+\begin{tikzpicture}
+\tikzstyle{mybox} = [draw=black, fill=emerald!20, very thick,
+    rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
+
+	\node [mybox, draw=black, ultra thick] (box){%
+		\begin{minipage}{0.3\textwidth}
+			f est mesurable ssi :
+			$\forall b \in \mathbb{R}$ on $a[b<f] \in \mathcal{A}$
+		\end{minipage}
+	};
+%------------ Corollaire 3.1.3 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Corollaire 3.1.3};
+\end{tikzpicture}
+%------------ Définition 3.2.1 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soient $\left(E_{1}, \beta_{1}\right),\left(E_{2}, \beta_{2}\right)$ des espaces mesurables.
+
+			On $a: E_{1} \times E_{2}=\left\{(x, y) / x \in E_{1}, y \in E_{2}\right\}$ est un ensemble mesurable avec
+
+			$\left(E_{1} \times E_{2}, \sigma(C)\right)$ et $C=\left\{A_{1} \times A_{2} / A_{1} \in \beta_{1}, A_{2} \in \beta_{2}\right\}$
+			}
+		\end{minipage}
+	};
+%------------ Définition 3.2.1 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Définition 3.2.1.};
+\end{tikzpicture}
+%------------ Proposition 3.2.2 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $f_{1}, f_{2}:(E, \mathcal{A}) \rightarrow \mathbb{R}$ fonctions mesurables, avec $(E, \mathcal{A})$ un espace.
+
+			$$
+			\begin{gathered}
+			f_{1}+f_{2}:(E, \mathcal{A}) \longrightarrow \mathbb{R} \\
+			x \longmapsto f_{1}(x)+f_{2}(x)
+			\end{gathered}
+			$$
+
+			est une fonction mesurable.
+		\end{minipage}
+	};
+%------------ Proposition 3.2.2 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Proposition 3.2.2};
+\end{tikzpicture}
+%------------ Proposition 3.2.1 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soient $\left(E_{1}, \mathcal{A}\right) .\left(F_{i}, \beta_{1}\right),\left(F_{2}, \beta_{2}\right)$ des espaces mesurables $, f_{1}:(E, \mathcal{A}) \rightarrow$ $\left(F_{1}, \beta_{1}\right)$ et $f_{2}:\left(F_{1}, \beta_{1}\right) \longrightarrow\left(F_{2}, \beta_{2}\right)$ forctions mesurables. Alors l'application :
+
+			$$
+			\begin{gathered}
+			f:(E, \mathcal{A}) \longrightarrow\left(F_{1} \times F_{2}, \sigma(\mathcal{C})\right) \\
+			x \longmapsto\left(f_{1}(x), f_{2}(x)\right)
+			\end{gathered}
+			$$
+
+			Avec $\mathcal{C}=\left\{A_{1} \times A_{2} / A_{1} \in \beta_{1}, A_{2} \in \beta_{2}\right\}$ est mesurable.
+		\end{minipage}
+	};
+%------------ Proposition 3.2.1 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Proposition 3.2.1.};
+\end{tikzpicture}
+%------------ Théorème 3.2.1 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Théorème 3.2.1. : Il y a équivalence entre :
+
+			\begin{itemize}
+				\item $f$ est mesurable. \item $\forall a \in \mathbb{R},[f>a] \in \mathcal{A}$
+				\item $\forall a \in \mathbb{R},[f<a] \in \mathcal{A}$
+				\item $\forall a \in \mathbb{R},[f \geq a] \in \mathcal{A}$
+				\item $\forall a \in \mathbb{R},[f \leq a] \in \mathcal{A}$
+			\end{itemize}
+		\end{minipage}
+	};
+%------------ Théorème 3.2.1 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Théorème 3.2.1.};
+\end{tikzpicture}
+%------------ Théorème 3.2.2 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			soit $(E, \mathcal{A})$ un espacs nuesurable, et $f, g:(E, \mathcal{A}) \longrightarrow \overline{\mathbb{R}}$ applications mesurables. Alors $f g$ est aussi mesurable.
+		\end{minipage}
+	};
+%------------ Théorème 3.2.2 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Théorème 3.2.2.};
+\end{tikzpicture}
+%------------ Remarque 3.2.1 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			 comme conséquence, on a $\alpha f$ est mesurable pour tout $\alpha \in \mathbb{R}$ et $f$ une fonction mesurable.
+		\end{minipage}
+	};
+%------------ Remarque 3.2.1 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Remarque 3.2.1.};
+\end{tikzpicture}
+%------------ Corollaire 3.2.1 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Comme conséquences des résultats précedents si $f$ et $g$ sont mesurables. ona
+
+$[f<g] \in \mathcal{A},[f \leq g] \in \mathcal{A},[f=g] \in \mathcal{A},[f \neq g] \in \mathcal{A}$.
+
+		\end{minipage}
+	};
+%------------ Corollaire 3.2.1 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Corollaire 3.2.1.};
+\end{tikzpicture}
+%------------ Proposition 3.2.3 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Si $f:(E, \mathcal{A}) \longrightarrow \overline{\mathbb{R}}$ mesurable. Alors $|f|, f^{+}, f^{-}$ sont aussi mesurables.
+
+			On note $f^{+}=\sup (0, f)$ et $f^{-}=\sup (-f, 0)$. Alors on peut caractériser $f^{+}$ et $f^{-}$ par :
+
+			$$
+			f^{+}=\frac{f+|f|}{2} \quad, \quad f^{-}=\frac{|f|-f}{2}
+			$$
+		\end{minipage}
+	};
+%------------ Proposition 3.2.3 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Proposition 3.2.3.};
+\end{tikzpicture}
+%------------ Proposition 3.2.4 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $f_{n}$ une suite de fonctions mesurables, on $a$ : sont des fonctions mesurables.
+
+			$$
+			\text { 1) } \inf _{n} f_{n}, \quad 2) \sup _{n} f_{n}, \quad 3) \lim _{\bar{n}} f_{n}, \quad 4) \lim _{n}^{-} f_{n}
+			$$
+		\end{minipage}
+	};
+%------------ Proposition 3.2.4 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Proposition 3.2.4.};
+\end{tikzpicture}
+%------------ Corollaire 3.2.2 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E, \mathcal{A})$ un espace mesurable.
+\begin{itemize}
+				\item
+			Si $\left(f_{n}\right)_{n}$ une suite de fonctions de $E$ dans $\overline{\mathbb{R}}$ mesurable, et si $f_{n} \rightarrow f$ simplement. Alors $f: E \longrightarrow \overline{\mathbb{R}}$ est mesurable.
+\item
+			 Si $f_{n}: E \longrightarrow \overline{\mathbb{R}}_{+}$ est mesurable. Alors $\sum_{n} f_{n}: E \longrightarrow \overline{\mathbb{R}}_{+}$ est mesurable.
+    \end{itemize}
+		\end{minipage}
+	};
+%------------ Corollaire 3.2.2 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Corollaire 3.2.2.};
+\end{tikzpicture}
+%------------ Définition 3.3.1 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E, \mathcal{A})$ un espace mesurable.
+			
+			Une fonction $f: E \rightarrow \mathbb{R}$ est dite étagée ssi il existe $\left(\alpha_1, \cdots, \alpha_{p_0}\right)$ dans $\mathbb{R}$ et il existe $\left(A_1, A_2, \cdots, A_{p_0}\right)$ des élèments de $\mathcal{A}$ tel que
+			
+			$$
+			f=\sum_{i=1}^{p_0} \alpha_i 1_{A i}
+			$$
+		\end{minipage}
+	};
+%------------ Définition 3.3.1 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Définition 3.3.1.};
+\end{tikzpicture}
+%------------ Remarque 1 ---------------
+\begin{tikzpicture}
+
+	\node [mybox] (box){%
+
+		\begin{minipage}{0.3\textwidth}
+  
+			Soit $A \in \mathcal{A}$. On a
+			
+			$$
+			\begin{aligned}
+			1_A: E & \longrightarrow \mathbb{R} \\
+			x & \longmapsto \begin{cases}1 & \text { si } x \in A \\
+			0 & \text { sinon. }\end{cases}
+			\end{aligned}
+			$$
+			
+			Pour $a \in \mathbb{R}$, on a $\left[1_A<a\right]=\left\{x \in E / 1_A(x) \leq a\right\}$
+			
+			$$
+			\left[1_A<a\right]=\left\{\begin{aligned}
+			\phi & \text { si } a \leq 0 \\
+			A^c & \text { si } 0<a \leq 1 \\
+			E & \text { si } a>1
+			\end{aligned}\right.
+			$$
+			
+			D'où $\left[1_A<a\right] \in \mathcal{A}$ ceci $\forall a \in \mathbb{R}$. Ainsi $1_A$ est une fonction mesurable.
+   \begin{itemize}
+				\item
+   conclusion:Toutes les fonctions étagées sont mesurables.
+   \end{itemize}
+		\end{minipage}
+	};
+%------------ Remarque 1 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Remarque 1};
+\end{tikzpicture}
+%------------ Théorème 3.3.1 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E, \mathcal{A})$ un espace mesurable, et soit $f: E \longrightarrow \mathbb{R}^{+}$. Alors on a l'équivalence suivante:
+			
+			\begin{itemize}
+				\item $f$ est une fonction mesurable.
+				\item $f$ est une limite de suite $\left(f_n\right)_n$ étagées vérifiant:
+				
+				\begin{itemize}
+					\item[a)] $f_n \leq f$
+					\item[b)] $\left(f_n\right) \uparrow$
+					\item[c)] $f_n \longrightarrow f$ simplement.
+				\end{itemize}
+			\end{itemize}
+		\end{minipage}
+	};
+%------------ Théorème 3.3.1 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Théorème 3.3.1.};
+\end{tikzpicture}
+%------------ Définition 3.4.1 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E, \mathcal{A}, \mu)$ un espace mesuré.
+			
+			Soient $f_n: E \rightarrow \overline{\mathbb{R}}$ et $f: E \longrightarrow \overline{\mathbb{R}}$ fonctions mesurables. On dit que $f_n \rightarrow f $ $\mu$ presque partout (note $\mu . p . p$) ssi il existe $A \in \mathcal{A}$ tel que $\mu\left(A^c\right)=0$ et $\forall x \in A$ on a $f_n(x) \longrightarrow f(x)$.
+		\end{minipage}
+	};
+%------------ Définition 3.4.1 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Définition 3.4.1.};
+\end{tikzpicture}
+%------------ Remarque 3 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			$f_n \longrightarrow f$ simplement $\Longrightarrow f_n \longrightarrow f \mu . p$.p $\operatorname{car} \mu(\phi)=0$.
+		\end{minipage}
+	};
+%------------ Remarque 3 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Remarque 3:};
+\end{tikzpicture}
+%------------ Théorème 3.4.1 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soient $(E, \mathcal{A}, \mu)$ un espace mesuré fini $(\mu(E)<+\infty) \cdot\left(f_n\right)_n, f: E \longrightarrow \mathbb{R}$ mesurables tel que $f_n \longrightarrow f \mu . p . p$. Alors :
+			$$
+			\forall \varepsilon>0 \exists A \in \mathcal{A} \text { tel que } \mu(A)<\varepsilon \text { et } f_n \longrightarrow f \text { uniformement sur }\left(A^c\right) \text {. }
+			$$
+		\end{minipage}
+	};
+%------------ Théorème 3.4.1 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Théorème 3.4.1. (Thèorème d'Egorov)};
+\end{tikzpicture}
+%------------ Lemme 4.1.1 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $f \in \varepsilon_{+}$et soient deux décompositions de $f$ suivantes :
+			
+			$$
+			f=\sum_{i=1}^n \alpha_i 1_{A i}=\sum_{j=1}^m \beta_j 1_{B j}
+			$$
+			
+			avec $\left(\alpha_1, \alpha_2, \cdots, \alpha_n\right) \in \mathbb{R}_{+}^*$ et $\left(\beta_1, \beta_2, \cdots, \beta_m\right)\in  \mathbb{R}_{+}^*$ $ \\ \\ \left(A_i\right)_i$ sont disjoints deux à deux et $\left(B_j\right)$ s swì disjoints deux à deux. Alors :
+			
+			$$
+			\sum_{i=1}^n \alpha_i \mu\left(A_i\right)=\sum_{j=1}^m \beta_j \mu\left(B_j\right)
+			$$
+		\end{minipage}
+	};
+%------------ Lemme 4.1.1 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Lemme 4.1.1.};
+\end{tikzpicture}
+
+%------------ Définition 4.1.2 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.32\textwidth}
+			Soit $(E, \mathcal{A}, \mu)$ un espace mesuré et $f \in \varepsilon_{+}$. On appelle intégrale de $f$ par rapport à la mesure $\mu$ le réel.
+			
+			$$
+			\int f d \mu=\sum_{i=1}^{n} \alpha_{i} \mu\left(A_{i}\right)
+			$$
+			
+			où $f=\sum_{i=1}^{p} \alpha_{i} 1_{A i} \alpha_{i} \in \mathbb{R}_{+}^{*}$ et $A_{i} \in \mathcal{A}$ disjoints deux à deux.\\
+			\begin{itemize}
+   \item 
+			 Notation :
+			
+			$\int f d \mu$ peut être noté $\int_{E} f d \mu$ ou $\int_{E} f(x) d \mu(x)$ ou $\int_{E} f(x) \mu(d x)$ ou $<f, \mu>$.
+   \end{itemize}
+		\end{minipage}
+	};
+%------------ Définition 4.1.2 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Définition 4.1.2.};
+\end{tikzpicture}
+%------------ Remarque 4.1.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			\begin{itemize}
+				\item Si $f \in \varepsilon_{+}$ et $f=0$ $$\Longrightarrow $\int f d \mu=0$.
+				\item \forall$f \in \varepsilon_{+}$ \Longrightarrow $\int f d \mu \geq 0$.
+				\item Si $\mu(E)=0$\Longrightarrow$\int f d \mu=0$.
+			\end{itemize}
+		\end{minipage}
+	};
+%------------ Box Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Remarque 4.1.1.};
+\end{tikzpicture}
+
+
+%------------ Proposition 4.1.1 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			\begin{itemize}
+				\item  si $\alpha>0$ et $f \in \varepsilon_{+}$, alors $\int(\alpha f) d \mu=\alpha \int f d \mu$.
+				\item   $\forall f, g \in \varepsilon_{+}$on a $\int(f+g) d \mu=\int f d \mu+\int g d \mu$
+				\item $\forall f, g \in \varepsilon_{+} f \leq g \Longrightarrow \int f d \mu \leq \int g d \mu$
+			\end{itemize}
+		\end{minipage}
+	};
+%------------ Proposition 4.1.1 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Proposition 4.1.1.};
+\end{tikzpicture}
+%------------ Lemme 4.2.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E, \mathcal{A}, \mu)$ un espace mesuré soient $\left(f_{n}\right)_{n},\left(g_{n}\right)_{n}$ deux suites des forctions étagées positives croissantes qui convergent vers une fonction $f \in M$.
+
+			Alors
+
+			$$
+			\lim _{n} \int f_{n} d \mu=\lim _{n} \int g_{n} d \mu
+			$$
+		\end{minipage}
+	};
+%------------ \section{Lemme 4.2.1. :} Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Lemme 4.2.1.};
+\end{tikzpicture}
+%------------ Définition 4.2.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $f \in M_{+}$ on définit :
+			
+			$$
+			\int f d \mu=\lim _{n}\left(\int f_{n} d \mu\right)
+			$$
+			
+			où $\left(f_{n}\right)_{n}$ suite croissante de fonction de $\varepsilon_{+}$ qui converge simplement vers $f$
+		\end{minipage}
+	};
+%------------ Définition 4.2.1. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Définition 4.2.1.};
+\end{tikzpicture}
+
+%------------ Proposition 4.2.1 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $f, g \in M_{+}$ et $\alpha>0$
+			
+			Alors :
+			\begin{itemize}
+				\item
+			 $\forall f, g \in M_{+}$ on a $\int(f+g) d \mu=\int f d \mu+\int g d \mu$
+			
+			\item Si $\alpha>0$ et $f \in M_{+}$ on a $\int(\alpha f) d \mu=\alpha \int f d \mu$
+   \end{itemize}
+		\end{minipage}
+	};
+%------------ Proposition 4.2.1 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Proposition 4.2.1};
+\end{tikzpicture}
+
+%------------ Théorème de Beppolevi ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $f_{n}$ une suite dans $M_{+}$ croissante
+			
+			Alors
+			
+			$$
+			\int\left(\sup _{n} f_{n}\right) d \mu=\sup _{n} \int f_{n} d \mu
+			$$
+			
+			c'est à dire
+			
+			$$
+			\int\left(\lim _{n} f_{n}\right) d \mu=\lim _{n} \int f_{n} d \mu
+			$$
+		\end{minipage}
+	};
+%------------ Théorème de Beppolevi Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Théorème de Beppolevi};
+\end{tikzpicture}
+%------------ Remarque 4.3.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+		 $S i\left(f_{n}\right)_{n}$ sont dans $M_{+}$, c'est exactement la définition de l'intégrale.
+		\end{minipage}
+	};
+%------------ Remarque 4.3.1. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Remarque 4.3.1.};
+\end{tikzpicture}
+%------------ Corollaire 4.3.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E, A, \mu)$ un espace mesure
+			
+			pour tout suite $\left(f_{n}\right)_{n}$ dans $M_{+}$ on a :
+			
+			$$
+			\int \sum_{n} f_{n} d \mu=\sum_{n} \int f_{n} d \mu
+			$$
+		\end{minipage}
+	};
+%------------ Corollaire 4.3.1. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Corollaire 4.3.1.};
+\end{tikzpicture}
+
+%------------ lemme de fatou ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $\left(f_{n}\right)_{n}$ une suite dans $M_{+}$ Alors :
+			
+			$$
+			\int\left(\liminf _{n} f_{n}\right) d \mu \leq \liminf _{n}\left(\int f_{n} d \mu\right)
+			$$
+		\end{minipage}
+	};
+%------------ lemme de fatou Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {lemme de fatou};
+\end{tikzpicture}
+
+%------------ Définition 4.4.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E, \mathcal{A}, \mu)$ un espace mesuré
+			
+			On dit que $f$ est intégrable si et seulement si $\int|f| d \mu$ existe
+			
+			(si $\int|f| d \mu=\infty$ alors $f$ n'est pas intégrable)
+			
+			dans ce cas là ,on dit que $f \in \mathcal{L}^{1}$
+			
+			avec :
+			
+			$$
+			\mathcal{L}^{1}=\left\{f \in M \text { tel que } \int|f| d \mu<\infty\right\}
+			$$
+		\end{minipage}
+	};
+%------------ Définition 4.4.1. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Définition 4.4.1.};
+\end{tikzpicture}
+
+%------------ Définition 4.4.2. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E, \mathcal{A}, \mu)$ un espace mesuré et soit $f \in \mathcal{L}^{1}$
+			
+			on appelle intégrale de $f$ noté $\int f d \mu$ le nombre
+			
+			$$
+			\int f d \mu=\int f^{+} d \mu-\int f^{-} d \mu
+			$$
+		\end{minipage}
+	};
+%------------ Définition 4.4.2. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Définition 4.4.2.};
+\end{tikzpicture}
+%------------ Remarque 4.4.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Si $f \in \mathcal{L}^{1}$, alors $f^{+} \leq|f|$ et donc $\int f^{+} d \mu<\infty$. De même, on a $f^{-} \leq|f|$ donc $\int f^{-} d \mu<\infty$. Comme $|f|=f^{+}+f^{-}$, on a $\int|f| d \mu=\int f^{+} d \mu+\int f^{-} d \mu$.
+		\end{minipage}
+	};
+%------------ Remarque 4.4.1. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Remarque 4.4.1.};
+\end{tikzpicture}
+%------------ Proposition 4.4.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E, \mathcal{A}, \mu)$ un espace mesuré et $\mathcal{L}^{1}=\left\{f \in M\right.$ tel que $\left.\int|f| d \mu<\infty\right\}$. Alors on a :
+			\begin{itemize}
+				\item
+			 $\mathcal{L}^{1}$ est un espace vectoriel.
+			
+			\item L'application $f \longrightarrow \int f d \mu$ est linéaire.
+   \end{itemize}
+		\end{minipage}
+	};
+%------------ Proposition 4.4.1. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Proposition 4.4.1.};
+\end{tikzpicture}
+%------------ Proposition 4.4.2 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $f \in M^{+}$. Alors :
+			
+			$$
+			\int f d \mu=0 \Leftrightarrow f=0 \mu . p . p
+			$$
+		\end{minipage}
+	};
+%------------ Proposition 4.4.2 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Proposition 4.4.2};
+\end{tikzpicture}
+
+%------------ Corollaire 4.4.1 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soient $f, g \in \mathcal{L}^{1}$. On a :
+			
+			\begin{itemize}
+				\item $f \leq g..\mu . p . p \Longrightarrow \int f d \mu \leq \int g d \mu$
+				\item $ f=g..\mu . p . p \Longleftrightarrow \int f d \mu = \int g d \mu$
+			\end{itemize}
+		\end{minipage}
+	};
+%------------ Corollaire 4.4.1 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Corollaire 4.4.1};
+\end{tikzpicture}
+
+%------------ Remarque 4.4.2 ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Pour tout $f \in \mathcal{L}^{1}$, on a :
+			
+			$$
+			\left|\int f d \mu\right| \leq \int|f| d \mu
+			$$
+		\end{minipage}
+	};
+%------------ Remarque 4.4.2 Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Remarque 4.4.2};
+\end{tikzpicture}
+
+%------------ convergence monotone ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $\left(f_{n}\right)_{n}$ une suite de fonctions dans $\mathcal{L}^{1}$ croissante. Alors 
+   \begin{itemize}
+				\item
+   $\left(f_{n}\right)_{n}$ converge vers une fonction $f \in M$ \item
+			
+			$
+			\int f d \mu=\sup _{n} \int f_{n} d \mu=\lim _{n} \int f_{n} d \mu
+			$
+   \end{itemize}
+		\end{minipage}
+	};
+%------------ convergence monotone Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {convergence monotone};
+\end{tikzpicture}
+
+%------------ convergence dominée/de Lebesgue ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E, \mathcal{A}, \mu)$ un espace mesuré et $\left(f_{n}\right)_{n}$ une suite de fonctions dans $M$ vérifiant :
+			
+			\begin{itemize}
+				\item $f_{n}$ converge vers $f \mu . p . p$ ($f$ est une fonction mesurable).
+				\item il existe $g$ dans $\mathcal{L}^{1}$ tel que $\forall n\left|f_{n}\right| \leq g..\mu$.p.p.
+			\end{itemize}
+			
+			Alors $f \in \mathcal{L}^{1}$ et :
+			
+			$$
+			\int f d \mu=\lim _{n} \int f_{n} d \mu
+			$$
+		\end{minipage}
+	};
+%------------ convergence dominée/de Lebesgue Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {convergence dominée/de Lebesgue};
+\end{tikzpicture}
+%------------ Définition 5.0.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E, \mu)$ un espace mesuré.
+			
+			Soient $1 \leq p<+\infty$ et $f: E \rightarrow \mathbb{R}$ une fonction mesurable.
+			
+			On dit que $f \in \mathcal{L}^{p}$ si et seulement si $|f|^{p} \in \mathcal{L}^{1}$ (i.e $\int|f|^{p} d \mu \leq+\infty$).
+		\end{minipage}
+	};
+%------------ Définition 5.0.1. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Définition 5.0.1.};
+\end{tikzpicture}
+
+%------------ Proposition 5.0.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E, \mu)$ un espace mesuré et $1 \leq p \leq+\infty$. $\mathcal{L}^{p}$ est un espace vectoriel.
+		\end{minipage}
+	};
+%------------ Proposition 5.0.1. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Proposition 5.0.1.};
+\end{tikzpicture}
+
+%------------ Proposition 5.3.2. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E, \mu)$ un espace mesuré et $f \in \mathcal{M}^{+}$. Si $\int f d \mu \leq+\infty$ alors $f<+\infty..\mu$ presque partout.
+		\end{minipage}
+	};
+%------------ Proposition 5.3.2. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Proposition 5.3.2.};
+\end{tikzpicture}
+%------------ Définition 5.0.2. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			On définit sur $\mathcal{L}^{p}$ la relation d'équivalence suivante:
+			
+			$f \mathcal{R} g$ si et seulement si $f=g ..\mu$ presque partout.
+			
+			et on note $L^{p}$ l'ensemble de toutes les classes d'équivalences de l'esvaces $L^{p}$, on on céfinit $f \in L^{p}$
+			si et seulement si :
+			$$
+			\left(\int|f|^{p}\right)^{\frac{1}{p}}<+\infty
+			$$
+			
+			où $f$ est un représentant de sa propre classe.
+   \\
+   Cela implique clairement que l'application $f \longrightarrow\left(\int|f|^{p}\right)^{\frac{1}{p}}$ est une norme sur $L^{p}$ et $\left(L^{p},\|\cdot\|_{p}\right)$
+est un espace vectoriel normé.
+		\end{minipage}
+	};
+%------------ Définition 5.0.2. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Définition 5.0.2.};
+\end{tikzpicture}
+%------------ Définition 5.0.3. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Définition 5.0.3. Soit $\left(f_{n}\right)_{n \in \mathbb{N}}$ une suite de $L^{p}$, soit $f \in L^{p}$.
+			
+			On dit que la suite $\left(f_{n}\right)_{n \in N}$ converge vers $f$ dans $L^{p}$ si et seulement si :
+			
+			$$
+			\lim _{n \rightarrow+\infty}\left\|f_{n}-f\right\|_{p}=0
+			$$
+		\end{minipage}
+	};
+%------------ Définition 5.0.3. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Définition 5.0.3.};
+\end{tikzpicture}
+%------------ Théorème 5.0.3. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $p \geq 1$, et soit $\left(f_{n}\right)_{n \in \mathbb{N}}$ une suite de fonctions de l'espace $L^{p}$ vérifiant :
+   \begin{itemize}
+       \item $\left(f_{n}\right)_{n \in \mathbb{N}}$ converge vers $f \mu$ presque partout.
+       \item il existe une fonction $g$ dans $L^{p}$ vérifiant:
+   \end{itemize}
+			
+			$$
+			\left|f_{n}\right| \leq g \quad \mu \text { presque partout }
+			$$
+			
+			pour tout $n \in \mathbb{N}$
+			
+			Alors $f \in L^{p}$ et $\left(f_{n}\right)_{n \in \mathbb{N}}$ converge vers $f$ dans $L^{p}$
+		\end{minipage}
+	};
+%------------ Théorème 5.0.3. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Théorème 5.0.3.};
+\end{tikzpicture}
+
+
+
+%------------ Théorème 5.1.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E,, \mu)$ un espace mesuré et soit $\left(f_{n}\right)_{n \in \mathbb{N}}$ une suite de l'espace $L^{p}$. Soit $f \in \mathcal{M}$ une fonction telle que $\left(f_{n}\right)_{n \in \mathbb{N}}$ converge vers $f.. \mu$ .p.p.
+			
+			L'implication suivante est valide :
+   \\
+			
+			Si la limite $\lim _{n \rightarrow+\infty}\left\|f_{n}\right\|_{p} \neq+\infty$ alors $f \in L^{p}$.
+		\end{minipage}
+	};
+%------------ Théorème 5.1.1. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Théorème 5.1.1. (De Fatou)};
+\end{tikzpicture}
+%------------ Théorème 5.2.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E,, \mu)$ un espace mesuré, soit $p \geq 1$. Alors $\left(L^{p},\|\cdot\|_{p}\right)$ est un espace de Banach.
+		\end{minipage}
+	};
+%------------ Théorème 5.2.1. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Riesz-Fischer};
+\end{tikzpicture}
+
+
+%------------ Corollaire 5.3.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $\left(f_n\right)_{n \in \mathbb{N}}$ une suite de $L^p$ qui vérifie :
+			
+			\begin{itemize}
+				\item $\left(f_n\right)_{n \in \mathbb{N}}$ converge vers $f$ dans $L^p$
+				\item $\left(f_n\right)_{n \in \mathbb{N}}$ converge vers $g ..\mu$ presque partout
+			\end{itemize}
+			
+			Alors $f=g \mu$ presque partout et $g \in L^p$.
+		\end{minipage}
+	};
+%------------ Corollaire 5.3.1. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Corollaire 5.3.1.};
+\end{tikzpicture}
+%------------ Corollaire 5.3.2. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Si $\left(f_n\right)_{n \in \mathbb{N}}$ converge vers $f$ dans $L^p$, alors il existe une sous suite $\left(f_{\varphi(n)}\right)_{n \in \mathbb{N}}$ de la suite $\left(f_n\right)_{n \in \mathbb{N}}$ qui converge $\mu$ presque partout vers $f$.
+		\end{minipage}
+	};
+%------------ Corollaire 5.3.2. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Corollaire 5.3.2.};
+\end{tikzpicture}
+
+%------------ Corollaire 5.3.3. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $\left(f_n\right)_{n \in \mathbb{N}}$ une suite de Cauchy dans $L^p$ telle que $\left(f_n\right)_{n \in \mathbb{N}}$ converge vers une fonction $f \mu$ presque partout.
+			
+			Alors $\left(f_n\right)_{n \in \mathbb{N}}$ converge vers $f$ dans $L^p$ et $f \in L^p$. (avec $p \neq \infty$ )
+		\end{minipage}
+	};
+%------------ Corollaire 5.3.3. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Corollaire 5.3.3.};
+\end{tikzpicture}
+
+%------------ Proposition 5.3.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E,, \mu)$ un espace mesuré tel que $\mu(E) \leq+\infty$ et soient $p, q \geq 1$ vérifiant $1 \leq p \leq q<\infty$.
+			
+			Alors $L^q \subset L^p$.
+		\end{minipage}
+	};
+%------------ Proposition 5.3.1. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Proposition 5.3.1.};
+\end{tikzpicture}
+%------------ Remarque 5.2.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Dans la preuve, on a si $\left(f_{n}\right)_{n}$ est une suite de Cauchy dans $L^{p}$ alors elle admet une sous suite $\left(f_{\varphi(n)}\right)_{n}$ qui converge $\mu$ presque partout vers $f \in L^{p}$ uniformément.
+		\end{minipage}
+	};
+%------------ Remarque 5.2.1. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Remarque 5.2.1.};
+\end{tikzpicture}
+%------------ Définition 5.1.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soient $(E,, \mu)$ un espace mesuré et soit l'application $f: E \rightarrow \overline{\mathbb{R}}$.
+			
+			On dit que l'application $f$ est essentiellement bornée ou que $f \in \mathcal{L}^{\infty}$ si et seulement s'il existe $c>0$ vérifiant :
+			
+			$|f| \leq c \quad \mu$ presque partout
+			
+			Si $f \in \mathcal{L}^{\infty}$, on pose :
+			
+			$$
+			\|f\|_{\infty}=\inf \{c>0|| f \mid \leq \text { c in presque partout }\}
+			$$
+		\end{minipage}
+	};
+%------------ Définition 5.1.1. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Définition 5.1.1.};
+\end{tikzpicture}
+%------------ Proposition 5.1.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Si $f \in \mathcal{L}^{\infty}$ on a : $|f| \leq\|f\|_\infty$ $\mu$ presque partout.
+		\end{minipage}
+	};
+%------------ Proposition 5.1.1. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Proposition 5.1.1.};
+\end{tikzpicture}
+
+
+%------------ Théorème 5.2.2. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E,, \mu)$ un espace mesuré. Alors $\left(L^{\infty},\|.\|_{\infty}\right)$ est complet.
+		\end{minipage}
+	};
+%------------ Théorème 5.2.2. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Complétude dans le cas de $\left.L^{\infty}\right$};
+\end{tikzpicture}
+%------------ Lemme 5.0.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soient $p, q \geq 1 / \frac{1}{p}+\frac{1}{q}=1$, alors pour tout $x, y \geq 0$ on a
+			
+			$$
+			x y \leq \frac{1}{p} x^{p}+\frac{1}{q} y^{q}
+			$$
+		\end{minipage}
+	};
+%------------ Lemme 5.0.1. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Inégalité de Young};
+\end{tikzpicture}
+
+%------------ Inégalité de Holder ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soient $(E,, \mu)$ un espace mesuré, $1 \leq p, q<+\infty$. $\frac{1}{p}+\frac{1}{q}=1$
+			
+			$f \in \mathcal{L}^{p}, g \in \mathcal{L}^{q}$, Alors on a :
+			\begin{itemize}
+				\item
+			 $f g \in \mathcal{L}^{1}$
+			
+			\item
+			
+			$
+			\int|f \| g| d \mu \leq\left(\int|f|^{p} d \mu\right)^{\frac{1}{p}}\left(\int|g|^{q} d \mu\right)^{\frac{1}{q}}
+			$
+   \end{itemize}
+		\end{minipage}
+	};
+%------------ Inégalité de Holder Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Inégalité de Holder};
+\end{tikzpicture}
+
+%------------ Inégalité de Minkowski ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soient $(E,, \mu)$ un espace mesuré, $p \geq 1, \mathcal{L}^{p} \ni$
+			
+			$f, g: E \longrightarrow \mathbb{R}$.
+			
+			Alors on $a: f+g \in \mathcal{L}^{p}$ et :
+			
+			$$
+			\left(\int|f+g|^{p} d \mu\right)^{\frac{1}{p}} \leq\left(\int|f|^{p} d \mu\right)^{\frac{1}{p}}+\left(\int|g|^{p} d \mu\right)^{\frac{1}{p}}
+			$$
+		\end{minipage}
+	};
+%------------ Inégalité de Minkowski Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Inégalité de Minkowski};
+\end{tikzpicture}
+%------------ Théorème 5.3.1. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E,, \mu)$ un espace mesuré et $(U, d)$ un espace métrique. Soit l'application:
+			
+			$$
+			\begin{aligned}
+			f: E \times U & \longrightarrow \mathbb{R} \\
+			(x, t) & \longrightarrow f(x, t)
+			\end{aligned}
+			$$
+			
+			On suppose que:
+			\begin{itemize}
+				\item
+			 L'application $t \rightarrow f(x, t)$ est continue sur $U \mu$ presque partout suivant la variable $x$.
+			
+			\item Il existe $g \in L^{1}|f(., t)| \leq g$ pour tout $t \in U$ et $\mu$ presque partout suivant la variable $x$.
+			\end{itemize}
+			Alors l'application :
+			
+			$$
+			\begin{aligned}
+			F: U & \rightarrow \mathbb{R} \\
+			t & \rightarrow F(t)=\int_{E} f(x, t) d \mu(x)
+			\end{aligned}
+			$$
+			
+			est continue sur $U$.
+		\end{minipage}
+	};
+%------------ Théorème 5.3.1. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Continuité sous intégrale};
+\end{tikzpicture}
+
+%------------ Théorème 5.3.2. ---------------
+\begin{tikzpicture}
+	\node [mybox] (box){%
+		\begin{minipage}{0.3\textwidth}
+			Soit $(E,, \mu)$ un espace mesuré et $I$ un intervaile ouvert de $\mathbb{R}$. On considere l'application :
+			
+			$$
+			\begin{aligned}
+			f: E \times I & \rightarrow \mathbb{R} \\
+			(x, t) & \longrightarrow f(x, t)
+			\end{aligned}
+			$$
+			
+			vérifiant :
+			\begin{itemize}
+				\item
+			 L'application $t \rightarrow f(., t)$ est dérivable dans $I \mu$ presque partout sur $E$.
+			
+			\item $n$ existe $g \in L^{1}\left|\frac{\partial f}{\partial t}(., t)\right| \leq g$ pour tout $t \in I \mu$ presque partout sur $E$.
+			\end{itemize}
+			Alors l'application :
+			
+			$$
+			\begin{aligned}
+			F: U & \longrightarrow \mathbb{R} \\
+			t & \longrightarrow F(t)=\int_{E} f(x, t) d \mu(x)
+			\end{aligned}
+			$$
+			
+			est dérivable sur I.
+		\end{minipage}
+	};
+%------------ Théorème 5.3.2. Header ---------------------
+	\node[fancytitle, right=10pt] at (box.north west) {Dérivabilité sous le signe intégral};
+\end{tikzpicture}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{multicols*}
+\end{document}
